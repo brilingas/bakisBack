@@ -1,8 +1,10 @@
 package lt.brilingas.guestregistry.service.impl.validation;
 import lt.brilingas.guestregistry.dao.api.IWorkerDAO;
+import lt.brilingas.guestregistry.dao.api.QueryParameterFunction;
 import lt.brilingas.guestregistry.data.dto.Address;
 import lt.brilingas.guestregistry.data.dto.location.LocationDTO;
 import lt.brilingas.guestregistry.data.dto.person.PersonDTO;
+import lt.brilingas.guestregistry.data.dto.worker.WorkerDTO;
 import lt.brilingas.guestregistry.service.data.FieldNotValidException;
 import lt.brilingas.guestregistry.service.impl.validation.impl.FieldValidator;
 import lt.brilingas.guestregistry.service.impl.validation.impl.ObjectCheck;
@@ -13,6 +15,8 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -57,6 +61,10 @@ public class PersonValidator implements IPersonValidator {
 
     @Override
     public void validateOnDelete(String personId) throws Exception {
-
+        List<WorkerDTO> workersWithThisPerson = workerDAO.findByFilter(Collections.singletonMap("personId", Collections.singletonMap(QueryParameterFunction.EQUALS, personId)));
+//        List<GuestDTO> guestsWithThisPerson = guestDAO.findByFilter(Collections.singletonMap("personId", Collections.singletonMap(QueryParameterFunction.EQUALS, personId)));//TODO fix if statement below
+        if (!workersWithThisPerson.isEmpty()){
+            throw new FieldNotValidException("Person by ID = " + personId + " cannot be deleted (there are Workers or Guests with a reference to it)");
+        }
     }
 }

@@ -1,5 +1,4 @@
 package lt.brilingas.guestregistry.service.impl;
-
 import lt.brilingas.guestregistry.dao.api.ILocationDAO;
 import lt.brilingas.guestregistry.service.data.ILocationService;
 import lt.brilingas.guestregistry.data.dto.location.LocationDTO;
@@ -23,15 +22,18 @@ public class LocationService implements ILocationService {
 
     @Override
     public String insertLocation(LocationDTO locationDTO) throws FieldNotValidException {
-        if (locationDTO == null) throw new IllegalArgumentException();
+        if (locationDTO == null) {
+            throw new IllegalArgumentException();
+        }
         locationValidator.validateOnCreate(locationDTO);
         return locationDAO.insert(locationDTO);
     }
 
     @Override
-    public void updateLocationById(String locationId, LocationDTO locationDTO)
-            throws FieldNotValidException, ResourceNotFoundException {
-        if (locationDTO == null || locationId == null) throw new IllegalArgumentException();
+    public void updateLocationById(String locationId, LocationDTO locationDTO) throws FieldNotValidException, ResourceNotFoundException {
+        if (locationDTO == null || locationId == null) {
+            throw new IllegalArgumentException();
+        }
         locationDTO.setId(locationId);
         locationValidator.validateOnUpdate(locationDTO);
         if (locationDAO.existsById(locationId)) {
@@ -43,25 +45,31 @@ public class LocationService implements ILocationService {
 
     @Override
     public void deleteLocationById(String locationId) throws Exception {
-        if (locationId == null) throw new IllegalArgumentException();
+        if (locationId == null) {
+            throw new IllegalArgumentException();
+        }
         locationValidator.validateOnDelete(locationId);
         locationDAO.deleteById(locationId);
     }
 
     @Override
     public LocationDTO getLocationById(String locationId) throws ResourceNotFoundException {
-        if (locationId == null) throw new IllegalArgumentException();
-        Optional<LocationDTO> locationOptional = locationDAO.getById(locationId);
-        if (locationOptional.isEmpty()) {
+        if (locationId == null) {
+            throw new IllegalArgumentException();
+        }
+        Optional<LocationDTO> locationDTOOptional = locationDAO.getById(locationId);
+        if (locationDTOOptional.isEmpty()) {
             throw new ResourceNotFoundException("Location by ID = " + locationId + " not found");
         } else {
-            return locationOptional.get();
+            return locationDTOOptional.get();
         }
     }
 
     @Override
     public List<LocationDTO> getAllLocations(Map<String, String> parameters) throws Exception {
-        if (parameters == null) throw new IllegalArgumentException();
+        if (parameters == null) {
+            throw new IllegalArgumentException();
+        }
         if (parameters.isEmpty()) {
             return locationDAO.getAll();
         } else {
@@ -71,7 +79,9 @@ public class LocationService implements ILocationService {
 
     @Override
     public boolean existsById(String locationId) {
-        if (locationId == null) throw new IllegalArgumentException();
+        if (locationId == null) {
+            throw new IllegalArgumentException();
+        }
         return locationDAO.existsById(locationId);
     }
 }

@@ -1,6 +1,5 @@
 package lt.brilingas.guestregistry.controller.controllers;
 import lt.brilingas.guestregistry.data.dto.worker.LoginStatus;
-import lt.brilingas.guestregistry.data.dto.worker.SignupStatus;
 import lt.brilingas.guestregistry.data.dto.worker.WorkerDTO;
 import lt.brilingas.guestregistry.service.data.DTOReferenceException;
 import lt.brilingas.guestregistry.service.data.FieldNotValidException;
@@ -33,21 +32,21 @@ public class WorkerController {
 
     @GetMapping(path = "/{workerId:[a-f0-9]{24}}" )
     public WorkerDTO getWorkerById(@PathVariable String workerId) throws ResourceNotFoundException {
-        return workerService.getWorker(workerId);
+        return workerService.getWorkerById(workerId);
     }
 
     @GetMapping(path = "" )
     public List<WorkerDTO> getWorkers(@RequestParam Map<String, String> parameters) throws Exception {
-        return workerService.getWorkers(parameters);
+        return workerService.getAllWorkers(parameters);
     }
     @PutMapping(path = "/{workerId:[a-f0-9]{24}}" )
     public void updateWorkerById(@PathVariable String workerId, @RequestBody WorkerDTO worker)
             throws FieldNotValidException, DTOReferenceException, ResourceNotFoundException {
-        workerService.updateWorker(workerId, worker);
+        workerService.updateWorkerById(workerId, worker);
     }
 
     @DeleteMapping(path = "/{workerId:[a-f0-9]{24}}" )
     public void deleteWorkerById(@PathVariable String workerId) throws ResourceNotFoundException, FieldNotValidException {
-        workerService.deleteWorker(workerId);
+        workerService.deleteWorkerById(workerId);
     }
 }

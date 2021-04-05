@@ -32,6 +32,11 @@ public class EventValidator implements IEventValidator {
         validateOnCreateOnUpdateCommon(event);
     }
 
+    @Override
+    public void validateOnDelete(EventDTO eventDTO) throws FieldNotValidException {
+        //TODO
+    }
+
     private void validateOnCreateOnUpdateCommon(EventDTO event) throws FieldNotValidException {
         if (event.getLocationId() != null) {
             fieldValidator.validate(event.getLocationId(), "LocationId in Event",

@@ -43,19 +43,19 @@ public class EventServiceTest {
 
     @Test
     public void updateEventTest() throws FieldNotValidException, ResourceNotFoundException {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> eventService.updateEvent(ID, null));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> eventService.updateEvent(null, EVENT));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> eventService.updateEvent(null, null));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> eventService.updateEventById(ID, null));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> eventService.updateEventById(null, EVENT));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> eventService.updateEventById(null, null));
 
         EventDTO event = new EventDTO();
         Mockito.when(eventDAO.existsById(ID)).thenReturn(true);
-        eventService.updateEvent(ID, event);
+        eventService.updateEventById(ID, event);
         Assertions.assertEquals(ID, event.getId());
         Mockito.verify(eventDAO, Mockito.times(1)).update(event);
 
         Mockito.when(eventDAO.existsById(ID)).thenReturn(false);
         Throwable exception = Assertions.assertThrows(ResourceNotFoundException.class,
-                () -> eventService.updateEvent(ID, event));
+                () -> eventService.updateEventById(ID, event));
         Assertions.assertEquals("Event by ID = " + ID + " not found", exception.getMessage());
 
         Mockito.verify(eventValidator, Mockito.times(2)).validateOnUpdate(event);
@@ -63,30 +63,30 @@ public class EventServiceTest {
 
     @Test
     public void deleteEvent() throws ResourceNotFoundException {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> eventService.deleteEvent(null));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> eventService.deleteEventById(null));
 
-        eventService.deleteEvent(ID);
+        eventService.deleteEventById(ID);
         Mockito.verify(eventDAO, Mockito.times(1)).deleteById(Mockito.eq(ID));
     }
 
     @Test
     public void getEventTest() throws ResourceNotFoundException {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> eventService.getEvent(null));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> eventService.getEventById(null));
 
         Mockito.when(eventDAO.findById(ID)).thenReturn(Optional.of(EVENT));
-        Assertions.assertEquals(EVENT, eventService.getEvent(ID));
+        Assertions.assertEquals(EVENT, eventService.getEventById(ID));
 
         Mockito.when(eventDAO.findById(ID)).thenReturn(Optional.empty());
-        Assertions.assertThrows(ResourceNotFoundException.class, () -> eventService.getEvent(ID));
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> eventService.getEventById(ID));
     }
 
     @Test
     public void getEventsTest() throws Exception {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> eventService.getEvents(null));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> eventService.getAllEvents(null));
 
         List<EventDTO> result = new ArrayList<>();
         Mockito.when(eventDAO.findAll()).thenReturn(result);
-        Assertions.assertEquals(result, eventService.getEvents(new HashMap<>()));
+        Assertions.assertEquals(result, eventService.getAllEvents(new HashMap<>()));
 
         result = new ArrayList<>();
         Map<String, String> parameters = Map.of("fieldName.function", "value");
@@ -95,7 +95,7 @@ public class EventServiceTest {
         Mockito.when(queryParametersCreator.create(parameters, EventDTO.FIELDS_ALLOWED_IN_FILTER)).
                 thenReturn(queryParameter);
         Mockito.when(eventDAO.findByFilter(queryParameter)).thenReturn(result);
-        Assertions.assertEquals(result, eventService.getEvents(parameters));
+        Assertions.assertEquals(result, eventService.getAllEvents(parameters));
     }
 
     @Test

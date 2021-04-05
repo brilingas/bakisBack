@@ -1,5 +1,4 @@
 package lt.brilingas.guestregistry.service.impl;
-
 import lt.brilingas.guestregistry.dao.api.IEventDAO;
 import lt.brilingas.guestregistry.data.dto.event.EventDTO;
 import lt.brilingas.guestregistry.service.data.IEventService;
@@ -23,33 +22,33 @@ public class EventService implements IEventService {
     private IQueryParametersCreator queryParametersCreator;
 
     @Override
-    public String insertEvent(EventDTO event) throws FieldNotValidException {
-        if (event == null) throw new IllegalArgumentException();
-        eventValidator.validateOnCreate(event);
-        return eventDAO.insert(event);
+    public String insertEvent(EventDTO eventDTO) throws FieldNotValidException {
+        if (eventDTO == null) throw new IllegalArgumentException();
+        eventValidator.validateOnCreate(eventDTO);
+        return eventDAO.insert(eventDTO);
     }
 
     @Override
-    public void updateEvent(String eventId, EventDTO eventForUpdate)
+    public void updateEventById(String eventId, EventDTO eventDTO)
             throws FieldNotValidException, ResourceNotFoundException {
-        if (eventForUpdate == null || eventId == null) throw new IllegalArgumentException();
-        eventForUpdate.setId(eventId);
-        eventValidator.validateOnUpdate(eventForUpdate);
+        if (eventDTO == null || eventId == null) throw new IllegalArgumentException();
+        eventDTO.setId(eventId);
+        eventValidator.validateOnUpdate(eventDTO);
         if (eventDAO.existsById(eventId)) {
-            eventDAO.update(eventForUpdate);
+            eventDAO.update(eventDTO);
         } else {
             throw new ResourceNotFoundException("Event by ID = " + eventId + " not found");
         }
     }
 
     @Override
-    public void deleteEvent(String eventId) throws ResourceNotFoundException {
+    public void deleteEventById(String eventId) throws ResourceNotFoundException {
         if (eventId == null) throw new IllegalArgumentException();
         eventDAO.deleteById(eventId);
     }
 
     @Override
-    public EventDTO getEvent(String eventId) throws ResourceNotFoundException {
+    public EventDTO getEventById(String eventId) throws ResourceNotFoundException {
         if (eventId == null) throw new IllegalArgumentException();
         Optional<EventDTO> eventOptional = eventDAO.findById(eventId);
         if (eventOptional.isEmpty()) {
@@ -60,7 +59,7 @@ public class EventService implements IEventService {
     }
 
     @Override
-    public List<EventDTO> getEvents(Map<String, String> parameters) throws Exception {
+    public List<EventDTO> getAllEvents(Map<String, String> parameters) throws Exception {
         if (parameters == null) throw new IllegalArgumentException();
         if (parameters.isEmpty()) {
             return eventDAO.findAll();

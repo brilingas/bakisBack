@@ -26,7 +26,6 @@ public class WorkerService implements IWorkerService {
 
     @Override
     public SignupStatus signup(WorkerDTO workerDTO) throws FieldNotValidException, DTOReferenceException, ResourceNotFoundException {
-
         return null;
     }
 
@@ -42,43 +41,43 @@ public class WorkerService implements IWorkerService {
     }
 
     @Override
-    public String insertWorker(WorkerDTO worker)
+    public String insertWorker(WorkerDTO workerDTO)
             throws FieldNotValidException, DTOReferenceException, ResourceNotFoundException {
-        if (worker == null) throw new IllegalArgumentException();
-        workerValidator.validateOnCreate(worker);
-        String cardId = worker.getCardId();
+        if (workerDTO == null) throw new IllegalArgumentException();
+        workerValidator.validateOnCreate(workerDTO);
+        String cardId = workerDTO.getCardId();
         if (cardId != null) {
             setCardAvailabilityFalse(cardId);
         }
-        return workerDAO.insert(worker);
+        return workerDAO.insert(workerDTO);
     }
 
     @Override
-    public void updateWorker(String workerId, WorkerDTO workerForUpdate)
+    public void updateWorkerById(String workerId, WorkerDTO workerDTO)
             throws FieldNotValidException, ResourceNotFoundException, DTOReferenceException {
-        if (workerForUpdate == null || workerId == null) throw new IllegalArgumentException();
-        workerForUpdate.setId(workerId);
-        workerValidator.validateOnUpdate(workerForUpdate);
+        if (workerDTO == null || workerId == null) throw new IllegalArgumentException();
+        workerDTO.setId(workerId);
+        workerValidator.validateOnUpdate(workerDTO);
         if (workerDAO.existsById(workerId)) {
-            String cardId = workerForUpdate.getCardId();
+            String cardId = workerDTO.getCardId();
             if (cardId != null) {
                 setCardAvailabilityFalse(cardId);
             }
 
-            WorkerDTO worker = getWorker(workerId);
+            WorkerDTO worker = getWorkerById(workerId);
             String oldAssignedCardId = worker.getCardId();
             if (oldAssignedCardId != null) {
                 setCardAvailabilityTrue(oldAssignedCardId);
             }
 
-            workerDAO.update(workerForUpdate);
+            workerDAO.update(workerDTO);
         } else {
             throw new ResourceNotFoundException("Worker by ID = " + workerId + " not found" );
         }
     }
 
     @Override
-    public void deleteWorker(String workerId) throws ResourceNotFoundException, FieldNotValidException {
+    public void deleteWorkerById(String workerId) throws ResourceNotFoundException, FieldNotValidException {
         if (workerId == null) throw new IllegalArgumentException();
         Optional<WorkerDTO> workerOptional = workerDAO.findById(workerId);
         if (workerOptional.isPresent()) {
@@ -91,7 +90,7 @@ public class WorkerService implements IWorkerService {
     }
 
     @Override
-    public WorkerDTO getWorker(String workerId) throws ResourceNotFoundException {
+    public WorkerDTO getWorkerById(String workerId) throws ResourceNotFoundException {
         if (workerId == null) throw new IllegalArgumentException();
         Optional<WorkerDTO> workerOptional = workerDAO.findById(workerId);
         if (workerOptional.isEmpty()) {
@@ -102,7 +101,7 @@ public class WorkerService implements IWorkerService {
     }
 
     @Override
-    public List<WorkerDTO> getWorkers(Map<String, String> parameters) throws Exception {
+    public List<WorkerDTO> getAllWorkers(Map<String, String> parameters) throws Exception {
         if (parameters == null) throw new IllegalArgumentException();
         if (parameters.isEmpty()) {
             return workerDAO.findAll();

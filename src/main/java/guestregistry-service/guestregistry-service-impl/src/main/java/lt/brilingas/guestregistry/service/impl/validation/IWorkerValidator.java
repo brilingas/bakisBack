@@ -4,7 +4,7 @@ import lt.brilingas.guestregistry.service.data.FieldNotValidException;
 import lt.brilingas.guestregistry.service.data.ResourceNotFoundException;
 
 public interface IWorkerValidator {
-    public void validateOnCreate(WorkerDTO workerDTO) throws FieldNotValidException, ResourceNotFoundException;
-
-    public void validateOnUpdate(WorkerDTO workerDTO) throws FieldNotValidException, ResourceNotFoundException;
+    void validateOnCreate(WorkerDTO workerDTO) throws FieldNotValidException, ResourceNotFoundException;
+    void validateOnUpdate(WorkerDTO workerDTO) throws FieldNotValidException, ResourceNotFoundException;
+    void validateOnDelete(WorkerDTO workerDTO) throws FieldNotValidException, ResourceNotFoundException;
 }

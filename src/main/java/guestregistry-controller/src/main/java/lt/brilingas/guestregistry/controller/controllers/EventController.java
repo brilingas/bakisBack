@@ -24,22 +24,22 @@ public class EventController {
 
     @GetMapping(path = "/{eventId:[a-f0-9]{24}}")
     public EventDTO getEventById(@PathVariable String eventId) throws ResourceNotFoundException {
-        return eventService.getEvent(eventId);
+        return eventService.getEventById(eventId);
     }
 
     @GetMapping(path = "")
     public List<EventDTO> getEvents(@RequestParam Map<String, String> parameters) throws Exception {
-        return eventService.getEvents(parameters);
+        return eventService.getAllEvents(parameters);
     }
 
     @PutMapping(path = "/{eventId:[a-f0-9]{24}}")
     public void updateEventById(@PathVariable String eventId, @RequestBody EventDTO event)
             throws FieldNotValidException, ResourceNotFoundException {
-        eventService.updateEvent(eventId, event);
+        eventService.updateEventById(eventId, event);
     }
 
     @DeleteMapping(path = "/{eventId:[a-f0-9]{24}}")
     public void deleteEventById(@PathVariable String eventId) throws ResourceNotFoundException {
-        eventService.deleteEvent(eventId);
+        eventService.deleteEventById(eventId);
     }
 }

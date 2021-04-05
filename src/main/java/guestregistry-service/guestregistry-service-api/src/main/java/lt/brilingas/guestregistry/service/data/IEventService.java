@@ -1,20 +1,19 @@
 package lt.brilingas.guestregistry.service.data;
-
 import lt.brilingas.guestregistry.data.dto.event.EventDTO;
 import java.util.List;
 import java.util.Map;
 
 public interface IEventService {
-    public String insertEvent(EventDTO event) throws FieldNotValidException;
+    String insertEvent(EventDTO eventDTO) throws FieldNotValidException;
 
-    public void updateEvent(String eventId, EventDTO eventForUpdate)
+    void updateEventById(String eventId, EventDTO eventDTO)
             throws FieldNotValidException, ResourceNotFoundException;
 
-    public void deleteEvent(String eventId) throws ResourceNotFoundException;
+    void deleteEventById(String eventId) throws ResourceNotFoundException;
 
-    public EventDTO getEvent(String eventId) throws ResourceNotFoundException;
+    EventDTO getEventById(String eventId) throws ResourceNotFoundException;
 
-    public List<EventDTO> getEvents(Map<String, String> parameters) throws Exception;
+    List<EventDTO> getAllEvents(Map<String, String> parameters) throws Exception;
 
-    public boolean existsById(String eventId);
+    boolean existsById(String eventId);
 }

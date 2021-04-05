@@ -53,11 +53,10 @@ public class LocationDAO implements ILocationDAO {
     }
 
     @Override
-    public List<LocationDTO> getByFilter(Map<String, Map<QueryParameterFunction, String>> parameters)
-            throws JsonProcessingException, ParameterNotValidException {
+    public List<LocationDTO> getByFilter(Map<String, Map<QueryParameterFunction, String>> parameters) throws JsonProcessingException, ParameterNotValidException {
         BasicQuery query = queryBuilder.build(parameters, LocationDTO.FIELDS_ALLOWED_IN_FILTER);
-        List<LocationEntity> listEntity = mongoTemplate.find(query, LocationEntity.class);
-        return LocationMapper.toDTOLinkedList(listEntity);
+        List<LocationEntity> locationEntityList = mongoTemplate.find(query, LocationEntity.class);
+        return LocationMapper.toDTOLinkedList(locationEntityList);
     }
 
     @Override

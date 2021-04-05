@@ -41,18 +41,18 @@ public class EventControllerIntegrationTest {
     public void updateEventByIdOkTest() throws Exception {
         MvcResult result = TestRequestExecutor.put(mockMvc, "/events/" + ID, HttpStatus.OK,
                 jsonMapper.writeValueAsString(EVENT));
-        Mockito.verify(eventService, Mockito.times(1)).updateEvent(ID, EVENT);
+        Mockito.verify(eventService, Mockito.times(1)).updateEventById(ID, EVENT);
     }
 
     @Test
     public void deleteEventByIdOkTest() throws Exception {
         MvcResult result = TestRequestExecutor.delete(mockMvc, "/events/" + ID, HttpStatus.OK);
-        Mockito.verify(eventService, Mockito.times(1)).deleteEvent(ID);
+        Mockito.verify(eventService, Mockito.times(1)).deleteEventById(ID);
     }
 
     @Test
     public void getEventByIdOkTest() throws Exception {
-        Mockito.when(eventService.getEvent(ID)).thenReturn(EVENT);
+        Mockito.when(eventService.getEventById(ID)).thenReturn(EVENT);
         MvcResult result = TestRequestExecutor.get(mockMvc, "/events/" + ID, HttpStatus.OK);
         String resultString = result.getResponse().getContentAsString();
         Assertions.assertEquals(jsonMapper.writeValueAsString(EVENT), resultString);
@@ -66,7 +66,7 @@ public class EventControllerIntegrationTest {
         String fieldWithFunction = "field.function";
         String value = "value";
         Map<String, String> parameters = Map.of(fieldWithFunction, value);
-        Mockito.when(eventService.getEvents(parameters)).thenReturn(list);
+        Mockito.when(eventService.getAllEvents(parameters)).thenReturn(list);
         MvcResult result = TestRequestExecutor.get(mockMvc, "/events?" + fieldWithFunction + "=" + value, HttpStatus.OK);
         String resultString = result.getResponse().getContentAsString();
         Assertions.assertEquals(jsonMapper.writeValueAsString(list), resultString);

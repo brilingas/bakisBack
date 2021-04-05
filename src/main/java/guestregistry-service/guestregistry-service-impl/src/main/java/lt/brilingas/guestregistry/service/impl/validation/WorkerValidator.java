@@ -34,6 +34,11 @@ public class WorkerValidator implements IWorkerValidator {
         validateOnCreateOnUpdateCommon(worker);
     }
 
+    @Override
+    public void validateOnDelete(WorkerDTO workerDTO) throws FieldNotValidException, ResourceNotFoundException {
+        //TODO
+    }
+
     private void validateOnCreateOnUpdateCommon(WorkerDTO worker) throws FieldNotValidException, ResourceNotFoundException {
         fieldValidator.validate(worker.getCompany(), "Company in Worker", StringCheck.maxLength(100));
         fieldValidator.validate(worker.getDepartment(), "Department in Worker", StringCheck.maxLength(100));

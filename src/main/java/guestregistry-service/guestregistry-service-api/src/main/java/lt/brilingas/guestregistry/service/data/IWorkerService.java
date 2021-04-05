@@ -12,17 +12,17 @@ public interface IWorkerService {
 
     LoginStatus login(WorkerDTO workerDTO)throws FieldNotValidException, DTOReferenceException, ResourceNotFoundException;
 
-    String insertWorker(WorkerDTO worker)
+    String insertWorker(WorkerDTO workerDTO)
             throws FieldNotValidException, DTOReferenceException, ResourceNotFoundException;
 
-    void updateWorker(String workerId, WorkerDTO workerForUpdate)
+    void updateWorkerById(String workerId, WorkerDTO workerDTO)
             throws FieldNotValidException, ResourceNotFoundException, DTOReferenceException;
 
-    void deleteWorker(String workerId) throws ResourceNotFoundException, FieldNotValidException;
+    void deleteWorkerById(String workerId) throws ResourceNotFoundException, FieldNotValidException;
 
-    WorkerDTO getWorker(String workerId) throws ResourceNotFoundException;
+    WorkerDTO getWorkerById(String workerId) throws ResourceNotFoundException;
 
-    List<WorkerDTO> getWorkers(Map<String, String> parameters) throws Exception;
+    List<WorkerDTO> getAllWorkers(Map<String, String> parameters) throws Exception;
 
     boolean existsById(String workerId);
 }

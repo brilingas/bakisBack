@@ -1,0 +1,12 @@
+version: '3.5'
+services:
+  mongo:
+    image: 'mongo:4.4.4-bionic'
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./docker/mongo-volume:/data/db
+      - ./backups:/data/backups
+      - ./docker/dump:/data/dump
+      - ./mongod.conf:/etc/mongo/mongod.conf
+    entrypoint: ["mongod","-f","/etc/mongo/mongod.conf"]

@@ -1,0 +1,28 @@
+package lt.brilingas.guestregistry.service.data;
+import lt.brilingas.guestregistry.data.dto.worker.LoginStatus;
+import lt.brilingas.guestregistry.data.dto.worker.SignupStatus;
+import lt.brilingas.guestregistry.data.dto.worker.WorkerDTO;
+
+import java.util.List;
+import java.util.Map;
+
+public interface IWorkerService {
+
+    SignupStatus signup(WorkerDTO workerDTO)throws FieldNotValidException, DTOReferenceException, ResourceNotFoundException;
+
+    LoginStatus login(WorkerDTO workerDTO)throws FieldNotValidException, DTOReferenceException, ResourceNotFoundException;
+
+    String insertWorker(WorkerDTO worker)
+            throws FieldNotValidException, DTOReferenceException, ResourceNotFoundException;
+
+    void updateWorker(String workerId, WorkerDTO workerForUpdate)
+            throws FieldNotValidException, ResourceNotFoundException, DTOReferenceException;
+
+    void deleteWorker(String workerId) throws ResourceNotFoundException, FieldNotValidException;
+
+    WorkerDTO getWorker(String workerId) throws ResourceNotFoundException;
+
+    List<WorkerDTO> getWorkers(Map<String, String> parameters) throws Exception;
+
+    boolean existsById(String workerId);
+}

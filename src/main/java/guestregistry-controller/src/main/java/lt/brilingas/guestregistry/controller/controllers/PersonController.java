@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/persons")
@@ -21,24 +22,24 @@ public class PersonController {
         personService.insertPerson(personDTO);
         return personDTO.getId();
     }
-    @PutMapping(path = "/{personId}")
+    @GetMapping(path = "/{personId:[a-f0-9]{24}}")
     @ResponseStatus(HttpStatus.OK)
-    public void updatePersonById(@PathVariable String personId, @RequestBody PersonDTO personDTO) throws ResourceNotFoundException, FieldNotValidException {
-        personService.updatePersonById(personId,personDTO);
+    public PersonDTO getPersonById(@PathVariable String personId) throws ResourceNotFoundException {
+        return personService.getPersonById(personId);
     }
     @GetMapping(path = "")
     @ResponseStatus(HttpStatus.OK)
-    public List<PersonDTO> getAllPersons(){
-        return personService.getAllPersons();
+    public List<PersonDTO> getAllPersons(@RequestParam Map<String, String> parameters) throws Exception {
+        return personService.getAllPersons(parameters);
     }
-    @GetMapping(path = "/{personId}")
+    @PutMapping(path = "/{personId:[a-f0-9]{24}}")
     @ResponseStatus(HttpStatus.OK)
-    public PersonDTO getPersonById(@PathVariable String personId) throws FieldNotValidException {
-        return personService.getPersonById(personId);
+    public void updatePersonById(@PathVariable String personId, @RequestBody PersonDTO personDTO) throws FieldNotValidException,ResourceNotFoundException {
+        personService.updatePersonById(personId,personDTO);
     }
-    @DeleteMapping(path = "/{personId")
+    @DeleteMapping(path = "/{personId:[a-f0-9]{24}}")
     @ResponseStatus(HttpStatus.OK)
-    public void deletePersonById(@PathVariable String personId) throws FieldNotValidException, ResourceNotFoundException {
+    public void deletePersonById(@PathVariable String personId) throws Exception {
         personService.deletePersonById(personId);
     }
 }

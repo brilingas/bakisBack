@@ -18,8 +18,8 @@ public class EventController {
 
     @PostMapping(path = "")
     @ResponseStatus(HttpStatus.CREATED)
-    public String createNewEvent(@RequestBody EventDTO event) throws FieldNotValidException {
-        return eventService.insertEvent(event);
+    public String createNewEvent(@RequestBody EventDTO eventDTO) throws FieldNotValidException {
+        return eventService.insertEvent(eventDTO);
     }
 
     @GetMapping(path = "/{eventId:[a-f0-9]{24}}")
@@ -33,9 +33,9 @@ public class EventController {
     }
 
     @PutMapping(path = "/{eventId:[a-f0-9]{24}}")
-    public void updateEventById(@PathVariable String eventId, @RequestBody EventDTO event)
+    public void updateEventById(@PathVariable String eventId, @RequestBody EventDTO eventDTO)
             throws FieldNotValidException, ResourceNotFoundException {
-        eventService.updateEventById(eventId, event);
+        eventService.updateEventById(eventId, eventDTO);
     }
 
     @DeleteMapping(path = "/{eventId:[a-f0-9]{24}}")

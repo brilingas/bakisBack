@@ -28,14 +28,13 @@ public class LocationController {
     }
 
     @GetMapping(path = "")
-    public List<LocationDTO> getLocations(@RequestParam Map<String, String> parameters) throws Exception {
+    public List<LocationDTO> getAllLocations(@RequestParam Map<String, String> parameters) throws Exception {
         return locationService.getAllLocations(parameters);
     }
 
     @PutMapping(path = "/{locationId:[a-f0-9]{24}}")
-    public void updateLocationById(@PathVariable String locationId, @RequestBody LocationDTO location)
-            throws FieldNotValidException, ResourceNotFoundException {
-        locationService.updateLocationById(locationId, location);
+    public void updateLocationById(@PathVariable String locationId, @RequestBody LocationDTO locationDTO) throws FieldNotValidException, ResourceNotFoundException {
+        locationService.updateLocationById(locationId, locationDTO);
     }
 
     @DeleteMapping(path = "/{locationId:[a-f0-9]{24}}")

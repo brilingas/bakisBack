@@ -42,8 +42,13 @@ public class PersonDAO implements IPersonDAO {
     public void deleteById(String personId) {
         personRepository.deleteById(personId);
     }
+
     @Override
     public Optional<PersonDTO> getById(String personId) {
+
+        System.out.println("Optional->" + personRepository.findById(personId).map(PersonMapper::toDTO));
+        System.out.println("Not optional->"+personRepository.findById(personId));
+
         return personRepository.findById(personId).map(PersonMapper::toDTO);
     }
     @Override

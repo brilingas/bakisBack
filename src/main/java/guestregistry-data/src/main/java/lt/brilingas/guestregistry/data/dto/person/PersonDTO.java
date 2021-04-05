@@ -1,34 +1,36 @@
 package lt.brilingas.guestregistry.data.dto.person;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lt.brilingas.guestregistry.data.dto.Address;
-
 import javax.validation.constraints.*;
 import java.util.Date;
+
+@EqualsAndHashCode
 @Data
 public class PersonDTO {
-    @NotBlank
-    @Size(min = 1,max = 5)
+//    @NotBlank
+//    @Size(min = 1,max = 5)
     private String id;
-    @NotBlank
-    @Size(min = 3)
+//    @NotBlank
+//    @Size(min = 3)
     private String name;
-    @NotBlank
-    @Size(min = 2)
+//    @NotBlank
+//    @Size(min = 2)
     private String surname;
-    @Past
-    @NotNull
+//    @Past
+//    @NotNull
     private Date birthday;
-    @NotBlank
+//    @NotBlank
     private String phoneNumber;
-    @Email
-    @NotBlank
+//    @Email
+//    @NotBlank
     private String email;
-    @NotNull
-    private Byte[] image;
-    @NotNull
+//    @NotNull
+    private Byte[] photo;
+//    @NotNull
     private Byte[] signature;
-    @NotNull
+//    @NotNull
     private Address address;
-    @NotNull
+//    @NotNull
     private Gender gender;
 }

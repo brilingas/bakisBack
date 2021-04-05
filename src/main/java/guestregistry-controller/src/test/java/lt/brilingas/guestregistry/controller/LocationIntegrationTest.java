@@ -68,7 +68,7 @@ public class LocationIntegrationTest {
         String resultString = result.getResponse().getContentAsString();
         Assertions.assertTrue(resultString.matches("^[a-f0-9]{24}$"));
 
-        LocationDTO resultLocation = locationDAO.findById(resultString).get();
+        LocationDTO resultLocation = locationDAO.getById(resultString).get();
         location.setId(resultString);
         Assertions.assertEquals(location, resultLocation);
     }
@@ -82,7 +82,7 @@ public class LocationIntegrationTest {
         MvcResult result = TestRequestExecutor.putWithBasicAuthorization(mockMvc, "/locations/" + location.getId(),
                 HttpStatus.OK, jsonMapper.writeValueAsString(location), TEST_USER, TEST_USER_PASSWORD);
 
-        LocationDTO resultLocation = locationDAO.findById(location.getId()).get();
+        LocationDTO resultLocation = locationDAO.getById(location.getId()).get();
         Assertions.assertEquals(location, resultLocation);
     }
 

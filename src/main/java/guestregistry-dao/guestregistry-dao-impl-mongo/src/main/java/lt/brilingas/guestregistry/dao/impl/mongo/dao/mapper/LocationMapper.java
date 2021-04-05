@@ -29,10 +29,10 @@ public class LocationMapper {
     }
 
     public static List<LocationDTO> toDTOLinkedList(List<LocationEntity> listEntity) {
-        List<LocationDTO> listDTO = new LinkedList<>();
+        List<LocationDTO> DTOList = new LinkedList<>();
         for(LocationEntity locationEntity : listEntity) {
-            listDTO.add(LocationMapper.toDTO(locationEntity));
+            DTOList.add(LocationMapper.toDTO(locationEntity));
         }
-        return listDTO;
+        return DTOList;
     }
 }

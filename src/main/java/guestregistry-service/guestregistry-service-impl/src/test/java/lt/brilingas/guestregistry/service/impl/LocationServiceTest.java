@@ -44,48 +44,48 @@ public class LocationServiceTest {
 
     @Test
     public void updateLocationTest() throws FieldNotValidException, ResourceNotFoundException {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> locationService.updateLocation(ID, null));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> locationService.updateLocation(null, LOCATION));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> locationService.updateLocation(null, null));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> locationService.updateLocationById(ID, null));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> locationService.updateLocationById(null, LOCATION));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> locationService.updateLocationById(null, null));
 
         Mockito.when(locationDAO.existsById(ID)).thenReturn(true);
-        locationService.updateLocation(ID, LOCATION);
+        locationService.updateLocationById(ID, LOCATION);
         Assertions.assertEquals(ID, LOCATION.getId());
         Mockito.verify(locationDAO, Mockito.times(1)).update(LOCATION);
 
         Mockito.when(locationDAO.existsById(ID)).thenReturn(false);
-        Assertions.assertThrows(ResourceNotFoundException.class, () -> locationService.updateLocation(ID, LOCATION));
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> locationService.updateLocationById(ID, LOCATION));
 
         Mockito.verify(locationValidator, Mockito.times(2)).validateOnUpdate(LOCATION);
     }
 
     @Test
     public void deleteLocation() throws Exception {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> locationService.deleteLocation(null));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> locationService.deleteLocationById(null));
 
-        locationService.deleteLocation(ID);
+        locationService.deleteLocationById(ID);
         Mockito.verify(locationValidator, Mockito.times(1)).validateOnDelete(Mockito.eq(ID));
         Mockito.verify(locationDAO, Mockito.times(1)).deleteById(Mockito.eq(ID));
     }
 
     @Test
     public void getLocationTest() throws ResourceNotFoundException {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> locationService.getLocation(null));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> locationService.getLocationById(null));
 
-        Mockito.when(locationDAO.findById(ID)).thenReturn(Optional.of(LOCATION));
-        Assertions.assertEquals(LOCATION, locationService.getLocation(ID));
+        Mockito.when(locationDAO.getById(ID)).thenReturn(Optional.of(LOCATION));
+        Assertions.assertEquals(LOCATION, locationService.getLocationById(ID));
 
-        Mockito.when(locationDAO.findById(ID)).thenReturn(Optional.empty());
-        Assertions.assertThrows(ResourceNotFoundException.class, () -> locationService.getLocation(ID));
+        Mockito.when(locationDAO.getById(ID)).thenReturn(Optional.empty());
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> locationService.getLocationById(ID));
     }
 
     @Test
     public void getLocationsTest() throws Exception {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> locationService.getLocations(null));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> locationService.getAllLocations(null));
 
         List<LocationDTO> result = new ArrayList<>();
-        Mockito.when(locationDAO.findAll()).thenReturn(result);
-        Assertions.assertEquals(result, locationService.getLocations(new HashMap<>()));
+        Mockito.when(locationDAO.getAll()).thenReturn(result);
+        Assertions.assertEquals(result, locationService.getAllLocations(new HashMap<>()));
 
         result = new ArrayList<>();
         Map<String, String> parameters = Map.of("fieldName.function", "value");
@@ -93,8 +93,8 @@ public class LocationServiceTest {
                 Map.of("fieldName", Map.of(QueryParameterFunction.EQUALS, "value"));
         Mockito.when(queryParametersCreator.create(parameters, LocationDTO.FIELDS_ALLOWED_IN_FILTER)).
                 thenReturn(queryParameter);
-        Mockito.when(locationDAO.findByFilter(queryParameter)).thenReturn(result);
-        Assertions.assertEquals(result, locationService.getLocations(parameters));
+        Mockito.when(locationDAO.getByFilter(queryParameter)).thenReturn(result);
+        Assertions.assertEquals(result, locationService.getAllLocations(parameters));
     }
 
     @Test

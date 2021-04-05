@@ -44,18 +44,18 @@ public class LocationControllerIntegrationTest {
     public void updateLocationByIdOkTest() throws Exception {
         MvcResult result = TestRequestExecutor.put(mockMvc, "/locations/" + ID, HttpStatus.OK,
                 jsonMapper.writeValueAsString(LOCATION));
-        Mockito.verify(locationService, Mockito.times(1)).updateLocation(ID, LOCATION);
+        Mockito.verify(locationService, Mockito.times(1)).updateLocationById(ID, LOCATION);
     }
 
     @Test
     public void deleteLocationByIdOkTest() throws Exception {
         MvcResult result = TestRequestExecutor.delete(mockMvc, "/locations/" + ID, HttpStatus.OK);
-        Mockito.verify(locationService, Mockito.times(1)).deleteLocation(ID);
+        Mockito.verify(locationService, Mockito.times(1)).deleteLocationById(ID);
     }
 
     @Test
     public void getLocationByIdOkTest() throws Exception {
-        Mockito.when(locationService.getLocation(ID)).thenReturn(LOCATION);
+        Mockito.when(locationService.getLocationById(ID)).thenReturn(LOCATION);
         MvcResult result = TestRequestExecutor.get(mockMvc, "/locations/" + ID, HttpStatus.OK);
         String resultString = result.getResponse().getContentAsString();
         Assertions.assertEquals(jsonMapper.writeValueAsString(LOCATION), resultString);
@@ -69,7 +69,7 @@ public class LocationControllerIntegrationTest {
         String fieldWithFunction = "field.function";
         String value = "value";
         Map<String, String> parameters = Map.of(fieldWithFunction, value);
-        Mockito.when(locationService.getLocations(parameters)).thenReturn(list);
+        Mockito.when(locationService.getAllLocations(parameters)).thenReturn(list);
         MvcResult result = TestRequestExecutor.get(mockMvc, "/locations?" + fieldWithFunction + "=" + value, HttpStatus.OK);
         String resultString = result.getResponse().getContentAsString();
         Assertions.assertEquals(jsonMapper.writeValueAsString(list), resultString);

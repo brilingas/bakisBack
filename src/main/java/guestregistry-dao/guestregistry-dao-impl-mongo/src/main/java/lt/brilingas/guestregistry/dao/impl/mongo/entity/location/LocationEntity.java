@@ -1,15 +1,12 @@
 package lt.brilingas.guestregistry.dao.impl.mongo.entity.location;
-
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import lt.brilingas.guestregistry.data.dto.Address;
 import lt.brilingas.guestregistry.data.dto.location.Status;
 import lt.brilingas.guestregistry.data.dto.location.Type;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Getter
-@Setter
+@Data
 @Document(collection = "location")
 public class LocationEntity {
     @Id

@@ -1,5 +1,4 @@
 package lt.brilingas.guestregistry.dao.impl.mongo.dao;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lt.brilingas.guestregistry.dao.api.ILocationDAO;
 import lt.brilingas.guestregistry.dao.api.ParameterNotValidException;
@@ -25,15 +24,15 @@ public class LocationDAO implements ILocationDAO {
     private IQueryBuilder queryBuilder;
 
     @Override
-    public String insert(LocationDTO location) {
-        LocationEntity locationEntity = LocationMapper.toEntity(location);
+    public String insert(LocationDTO locationDTO) {
+        LocationEntity locationEntity = LocationMapper.toEntity(locationDTO);
         LocationEntity savedLocation = locationRepository.insert(locationEntity);
         return savedLocation.getId();
     }
 
     @Override
-    public void update(LocationDTO location) {
-        LocationEntity locationEntity = LocationMapper.toEntity(location);
+    public void update(LocationDTO locationDTO) {
+        LocationEntity locationEntity = LocationMapper.toEntity(locationDTO);
         locationRepository.save(locationEntity);
     }
 
@@ -43,18 +42,18 @@ public class LocationDAO implements ILocationDAO {
     }
 
     @Override
-    public Optional<LocationDTO> findById(String locationId) {
+    public Optional<LocationDTO> getById(String locationId) {
         return locationRepository.findById(locationId).map(LocationMapper::toDTO);
     }
 
     @Override
-    public List<LocationDTO> findAll() {
-        List<LocationEntity> listEntity = locationRepository.findAll();
-        return LocationMapper.toDTOLinkedList(listEntity);
+    public List<LocationDTO> getAll() {
+        List<LocationEntity> locationEntityList = locationRepository.findAll();
+        return LocationMapper.toDTOLinkedList(locationEntityList);
     }
 
     @Override
-    public List<LocationDTO> findByFilter(Map<String, Map<QueryParameterFunction, String>> parameters)
+    public List<LocationDTO> getByFilter(Map<String, Map<QueryParameterFunction, String>> parameters)
             throws JsonProcessingException, ParameterNotValidException {
         BasicQuery query = queryBuilder.build(parameters, LocationDTO.FIELDS_ALLOWED_IN_FILTER);
         List<LocationEntity> listEntity = mongoTemplate.find(query, LocationEntity.class);

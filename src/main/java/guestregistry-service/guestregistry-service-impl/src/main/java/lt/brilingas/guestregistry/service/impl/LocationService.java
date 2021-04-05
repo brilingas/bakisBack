@@ -22,36 +22,36 @@ public class LocationService implements ILocationService {
 
 
     @Override
-    public String insertLocation(LocationDTO location) throws FieldNotValidException {
-        if (location == null) throw new IllegalArgumentException();
-        locationValidator.validateOnCreate(location);
-        return locationDAO.insert(location);
+    public String insertLocation(LocationDTO locationDTO) throws FieldNotValidException {
+        if (locationDTO == null) throw new IllegalArgumentException();
+        locationValidator.validateOnCreate(locationDTO);
+        return locationDAO.insert(locationDTO);
     }
 
     @Override
-    public void updateLocation(String locationId, LocationDTO locationForUpdate)
+    public void updateLocationById(String locationId, LocationDTO locationDTO)
             throws FieldNotValidException, ResourceNotFoundException {
-        if (locationForUpdate == null || locationId == null) throw new IllegalArgumentException();
-        locationForUpdate.setId(locationId);
-        locationValidator.validateOnUpdate(locationForUpdate);
+        if (locationDTO == null || locationId == null) throw new IllegalArgumentException();
+        locationDTO.setId(locationId);
+        locationValidator.validateOnUpdate(locationDTO);
         if (locationDAO.existsById(locationId)) {
-            locationDAO.update(locationForUpdate);
+            locationDAO.update(locationDTO);
         } else {
             throw new ResourceNotFoundException("Location by ID = " + locationId + " not found");
         }
     }
 
     @Override
-    public void deleteLocation(String locationId) throws Exception {
+    public void deleteLocationById(String locationId) throws Exception {
         if (locationId == null) throw new IllegalArgumentException();
         locationValidator.validateOnDelete(locationId);
         locationDAO.deleteById(locationId);
     }
 
     @Override
-    public LocationDTO getLocation(String locationId) throws ResourceNotFoundException {
+    public LocationDTO getLocationById(String locationId) throws ResourceNotFoundException {
         if (locationId == null) throw new IllegalArgumentException();
-        Optional<LocationDTO> locationOptional = locationDAO.findById(locationId);
+        Optional<LocationDTO> locationOptional = locationDAO.getById(locationId);
         if (locationOptional.isEmpty()) {
             throw new ResourceNotFoundException("Location by ID = " + locationId + " not found");
         } else {
@@ -60,12 +60,12 @@ public class LocationService implements ILocationService {
     }
 
     @Override
-    public List<LocationDTO> getLocations(Map<String, String> parameters) throws Exception {
+    public List<LocationDTO> getAllLocations(Map<String, String> parameters) throws Exception {
         if (parameters == null) throw new IllegalArgumentException();
         if (parameters.isEmpty()) {
-            return locationDAO.findAll();
+            return locationDAO.getAll();
         } else {
-            return locationDAO.findByFilter(queryParametersCreator.create(parameters, LocationDTO.FIELDS_ALLOWED_IN_FILTER));
+            return locationDAO.getByFilter(queryParametersCreator.create(parameters, LocationDTO.FIELDS_ALLOWED_IN_FILTER));
         }
     }
 

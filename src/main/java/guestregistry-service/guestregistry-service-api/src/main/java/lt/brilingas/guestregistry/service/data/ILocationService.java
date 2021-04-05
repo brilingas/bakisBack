@@ -1,20 +1,14 @@
 package lt.brilingas.guestregistry.service.data;
-
 import lt.brilingas.guestregistry.data.dto.location.LocationDTO;
 import java.util.List;
 import java.util.Map;
 
 public interface ILocationService {
-    public String insertLocation(LocationDTO location) throws FieldNotValidException;
-
-    public void updateLocation(String locationId, LocationDTO locationForUpdate)
+    String insertLocation(LocationDTO locationDTO) throws FieldNotValidException;
+    LocationDTO getLocationById(String locationId) throws ResourceNotFoundException;
+    List<LocationDTO> getAllLocations(Map<String, String> parameters) throws Exception;
+    void updateLocationById(String locationId, LocationDTO locationDTO)
             throws FieldNotValidException, ResourceNotFoundException;
-
-    public void deleteLocation(String locationId) throws Exception;
-
-    public LocationDTO getLocation(String locationId) throws ResourceNotFoundException;
-
-    public List<LocationDTO> getLocations(Map<String, String> parameters) throws Exception;
-
-    public boolean existsById(String locationId);
+    void deleteLocationById(String locationId) throws Exception;
+    boolean existsById(String locationId);
 }

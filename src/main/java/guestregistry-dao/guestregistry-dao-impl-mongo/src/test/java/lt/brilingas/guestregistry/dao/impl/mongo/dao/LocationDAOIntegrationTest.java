@@ -51,26 +51,26 @@ public class LocationDAOIntegrationTest {
     public void findByIdTest() {
         String name = "Abc";
         String id = insertNewLocationWithName(name);
-        Assertions.assertEquals(name, locationDAO.findById(id).get().getName());
-        Assertions.assertThrows(IllegalArgumentException.class, () -> locationDAO.findById(null));
+        Assertions.assertEquals(name, locationDAO.getById(id).get().getName());
+        Assertions.assertThrows(IllegalArgumentException.class, () -> locationDAO.getById(null));
     }
 
     @Test
     public void findAllTest() {
         locationRepository.deleteAll();
-        Assertions.assertTrue(locationDAO.findAll().isEmpty());
+        Assertions.assertTrue(locationDAO.getAll().isEmpty());
         insertNewLocationWithName("Abc");
-        Assertions.assertEquals(1, locationDAO.findAll().size());
+        Assertions.assertEquals(1, locationDAO.getAll().size());
     }
 
     @Test
     public void findByFilterTest() throws Exception {
         locationRepository.deleteAll();
-        Assertions.assertTrue(locationDAO.findAll().isEmpty());
+        Assertions.assertTrue(locationDAO.getAll().isEmpty());
         String name = "Abc";
         insertNewLocationWithName(name);
         insertNewLocationWithName("Def");
-        List<LocationDTO> result = locationDAO.findByFilter(
+        List<LocationDTO> result = locationDAO.getByFilter(
                 Collections.singletonMap("name", Collections.singletonMap(QueryParameterFunction.EQUALS, name)));
         Assertions.assertEquals(1, result.size());
     }

@@ -1,5 +1,4 @@
 package lt.brilingas.guestregistry.dao.impl.mongo.repository;
-
 import lt.brilingas.guestregistry.dao.impl.mongo.entity.person.PersonEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
 

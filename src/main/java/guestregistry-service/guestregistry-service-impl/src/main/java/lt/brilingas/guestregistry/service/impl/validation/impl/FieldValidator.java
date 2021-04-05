@@ -1,13 +1,12 @@
 package lt.brilingas.guestregistry.service.impl.validation.impl;
-
 import lt.brilingas.guestregistry.service.data.FieldNotValidException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FieldValidator {
-    public void validate(Object obj, String fieldName, ObjectCheck... checks) throws FieldNotValidException {
+public class  FieldValidator {
+    public void validate(Object object, String fieldName, ObjectCheck... checks) throws FieldNotValidException {
         for (ObjectCheck check : checks) {
-            if (!check.getFunc().test(obj)) {
+            if (!check.getFunc().test(object)) {
                 switch (check.getType()) {
                     case OBJECT_NOT_NULL -> throw new FieldNotValidException(fieldName + " is null");
                     case OBJECT_IS_NULL -> throw new FieldNotValidException(fieldName + " is not null");
@@ -17,10 +16,10 @@ public class FieldValidator {
         }
     }
 
-    public void validate(String str, String fieldName, StringCheck... checks) throws FieldNotValidException {
-        checkNotNull(str, fieldName);
+    public void validate(String string, String fieldName, StringCheck... checks) throws FieldNotValidException {
+        checkNotNull(string, fieldName);
         for (StringCheck check : checks) {
-            if (!check.getFunc().test(str)) {
+            if (!check.getFunc().test(string)) {
                 switch (check.getType()) {
                     case STRING_MIN_LENGTH -> throw new FieldNotValidException(fieldName +
                             " is not valid (length must be no less than " + check.getExceptionParam() + ")");
@@ -34,10 +33,10 @@ public class FieldValidator {
         }
     }
 
-    public void validate(Number num, String fieldName, NumberCheck... checks) throws FieldNotValidException {
-        checkNotNull(num, fieldName);
+    public void validate(Number number, String fieldName, NumberCheck... checks) throws FieldNotValidException {
+        checkNotNull(number, fieldName);
         for (NumberCheck check : checks) {
-            if (!check.getFunc().test(num)) {
+            if (!check.getFunc().test(number)) {
                 switch (check.getType()) {
                     case NUMBER_MIN -> throw new FieldNotValidException(fieldName +
                             " is not valid (value must be no less than " + check.getExceptionParam() + ")");
@@ -49,7 +48,7 @@ public class FieldValidator {
         }
     }
 
-    private void checkNotNull(Object obj, String fieldName) throws FieldNotValidException {
-        if (obj == null) throw new FieldNotValidException(fieldName + " is null");
+    private void checkNotNull(Object object, String fieldName) throws FieldNotValidException {
+        if (object == null) throw new FieldNotValidException(fieldName + " is null");
     }
 }

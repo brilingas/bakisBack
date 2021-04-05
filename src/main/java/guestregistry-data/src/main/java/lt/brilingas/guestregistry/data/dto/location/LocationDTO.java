@@ -1,15 +1,12 @@
 package lt.brilingas.guestregistry.data.dto.location;
-
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lt.brilingas.guestregistry.data.dto.Address;
 import java.util.HashMap;
 import java.util.Map;
 
 @EqualsAndHashCode
-@Getter
-@Setter
+@Data
 public class LocationDTO {
     public static final Map<String, Class<?>> FIELDS_ALLOWED_IN_FILTER = new HashMap<>(Map.of(
             "name", String.class,

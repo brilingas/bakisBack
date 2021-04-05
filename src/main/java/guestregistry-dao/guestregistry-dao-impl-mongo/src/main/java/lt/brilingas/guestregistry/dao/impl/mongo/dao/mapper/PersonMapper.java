@@ -2,6 +2,9 @@ package lt.brilingas.guestregistry.dao.impl.mongo.dao.mapper;
 import lt.brilingas.guestregistry.dao.impl.mongo.entity.person.PersonEntity;
 import lt.brilingas.guestregistry.data.dto.person.PersonDTO;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class PersonMapper {
     public static PersonDTO toDTO(PersonEntity personEntity) {
         PersonDTO personDTO = new PersonDTO();
@@ -11,7 +14,7 @@ public class PersonMapper {
         personDTO.setBirthday(personEntity.getBirthday());
         personDTO.setPhoneNumber(personEntity.getPhoneNumber());
         personDTO.setEmail(personEntity.getEmail());
-        personDTO.setImage(personEntity.getImage());
+        personDTO.setPhoto(personEntity.getImage());
         personDTO.setSignature(personEntity.getSignature());
         personDTO.setAddress(personEntity.getAddress());
         personDTO.setGender(personEntity.getGender());
@@ -25,10 +28,17 @@ public class PersonMapper {
         personEntity.setBirthday(personDTO.getBirthday());
         personEntity.setPhoneNumber(personDTO.getPhoneNumber());
         personEntity.setEmail(personDTO.getEmail());
-        personEntity.setImage(personDTO.getImage());
+        personEntity.setImage(personDTO.getPhoto());
         personEntity.setSignature(personDTO.getSignature());
         personEntity.setAddress(personDTO.getAddress());
         personEntity.setGender(personDTO.getGender());
         return personEntity;
+    }
+    public static List<PersonDTO> toDTOLinkedList(List<PersonEntity> listEntity) {
+        List<PersonDTO> DTOList = new LinkedList<>();
+        for(PersonEntity personEntity : listEntity) {
+            DTOList.add(PersonMapper.toDTO(personEntity));
+        }
+        return DTOList;
     }
 }

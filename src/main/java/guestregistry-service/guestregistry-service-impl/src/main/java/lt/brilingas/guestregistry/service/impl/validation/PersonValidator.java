@@ -1,6 +1,13 @@
 package lt.brilingas.guestregistry.service.impl.validation;
+import lt.brilingas.guestregistry.dao.api.IWorkerDAO;
+import lt.brilingas.guestregistry.data.dto.Address;
+import lt.brilingas.guestregistry.data.dto.location.LocationDTO;
 import lt.brilingas.guestregistry.data.dto.person.PersonDTO;
 import lt.brilingas.guestregistry.service.data.FieldNotValidException;
+import lt.brilingas.guestregistry.service.impl.validation.impl.FieldValidator;
+import lt.brilingas.guestregistry.service.impl.validation.impl.ObjectCheck;
+import lt.brilingas.guestregistry.service.impl.validation.impl.StringCheck;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -10,51 +17,46 @@ import java.util.Set;
 
 @Service
 public class PersonValidator implements IPersonValidator {
-
-    ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-    Validator validator = validatorFactory.getValidator();
-
-    @Override
-    public Validator initializeValidator() {
-        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-        Validator validator = validatorFactory.getValidator();
-        return validator;
-    }
-
-    @Override
-    public void validateField(String field) throws FieldNotValidException {
-        Set<ConstraintViolation<PersonDTO>> violations = initializeValidator().validateProperty(new PersonDTO(),field); //right here
-        if (violations.isEmpty()) {
-            return;
-        } else {
-            throw new FieldNotValidException();
-        }
-    }
+    @Autowired
+    private IAddressValidator addressValidator;
+    @Autowired
+    private FieldValidator fieldValidator;
+    @Autowired
+    private IWorkerDAO workerDAO;
 
     @Override
     public void validateOnCreate(PersonDTO personDTO) throws FieldNotValidException {
-        Set<ConstraintViolation<PersonDTO>> violations = initializeValidator().validate(personDTO);
-        if (violations.isEmpty()) {
-            return;
-        } else {
-            System.out.println(violations);
-            throw new FieldNotValidException();
-        }
+        fieldValidator.validate(personDTO.getId(), "Id of Person", ObjectCheck.isNull());
+        validateOnCreateOnUpdateCommon(personDTO);
     }
 
     @Override
-    public void validateOnUpdate(String personId, PersonDTO personDTO) throws FieldNotValidException {
-        validateField(personId);
-        Set<ConstraintViolation<PersonDTO>> violations = initializeValidator().validate(personDTO);
-        if (violations.isEmpty()) {
-            return;
-        } else {
-            throw new FieldNotValidException();
+    public void validateOnUpdate(PersonDTO personDTO) throws FieldNotValidException {
+        if (personDTO.getId()==null){
+            throw new NullPointerException();
+        } else{
+            fieldValidator.validate(personDTO.getId(), "Id of Person", StringCheck.matchesPattern("^[a-f0-9]{24}$"));
         }
+        validateOnCreateOnUpdateCommon(personDTO);
+    }
+
+    private void validateOnCreateOnUpdateCommon(PersonDTO personDTO) throws FieldNotValidException {
+        fieldValidator.validate(personDTO.getName(), "Name in Person", StringCheck.maxLength(100));
+        fieldValidator.validate(personDTO.getSurname(), "Surname in Person", StringCheck.maxLength(100));
+        fieldValidator.validate(personDTO.getBirthday(), "Birthday in Person", ObjectCheck.notNull());
+        fieldValidator.validate(personDTO.getPhoneNumber(), "PhoneNumber in Person", StringCheck.matchesPattern("^[+]"));//check pattern
+
+        fieldValidator.validate(personDTO.getEmail(), "Email in Person", StringCheck.maxLength(100));
+        fieldValidator.validate(personDTO.getPhoto(), "Photo in Person", ObjectCheck.notNull());
+        fieldValidator.validate(personDTO.getSignature(), "Signature in Person", ObjectCheck.notNull());
+        fieldValidator.validate(personDTO.getAddress(), "Address in Person", ObjectCheck.notNull());
+        fieldValidator.validate(personDTO.getGender(), "Gender in Person", ObjectCheck.notNull());
+        Address PersonAddress = personDTO.getAddress();
+        addressValidator.validateOnCreateOnUpdate(PersonAddress);
     }
 
     @Override
-    public void validateOnDelete(String personId) throws FieldNotValidException {
-        validateField(personId);
+    public void validateOnDelete(String personId) throws Exception {
+
     }
 }

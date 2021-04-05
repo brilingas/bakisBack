@@ -4,10 +4,10 @@ import java.util.List;
 
 public interface IPersonService {
     String insertPerson(PersonDTO personDTO) throws FieldNotValidException;
-    PersonDTO getPersonById(String personId) throws FieldNotValidException;
+    PersonDTO getPersonById(String personId) throws ResourceNotFoundException;
     List<PersonDTO> getPersonByName(String personName) throws FieldNotValidException;
-    List<PersonDTO> getAllPersons();
-    void updatePersonById(String personId, PersonDTO personDTO) throws ResourceNotFoundException, FieldNotValidException;
-    void deletePersonById(String personId) throws ResourceNotFoundException, FieldNotValidException;
-
+    List<PersonDTO> getAllPersons() throws Exception;
+    void updatePersonById(String personId, PersonDTO personDTO) throws FieldNotValidException, ResourceNotFoundException;
+    void deletePersonById(String personId) throws Exception, FieldNotValidException;
+    boolean existsById(String personId);
 }

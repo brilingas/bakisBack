@@ -31,21 +31,25 @@ public class WorkerController {
     }
 
     @GetMapping(path = "/{workerId:[a-f0-9]{24}}" )
+    @ResponseStatus(HttpStatus.OK)
     public WorkerDTO getWorkerById(@PathVariable String workerId) throws ResourceNotFoundException {
         return workerService.getWorkerById(workerId);
     }
 
     @GetMapping(path = "" )
+    @ResponseStatus(HttpStatus.OK)
     public List<WorkerDTO> getAllWorkers(@RequestParam Map<String, String> parameters) throws Exception {
         return workerService.getAllWorkers(parameters);
     }
     @PutMapping(path = "/{workerId:[a-f0-9]{24}}" )
+    @ResponseStatus(HttpStatus.OK)
     public void updateWorkerById(@PathVariable String workerId, @RequestBody WorkerDTO worker)
             throws FieldNotValidException, DTOReferenceException, ResourceNotFoundException {
         workerService.updateWorkerById(workerId, worker);
     }
 
     @DeleteMapping(path = "/{workerId:[a-f0-9]{24}}" )
+    @ResponseStatus(HttpStatus.OK)
     public void deleteWorkerById(@PathVariable String workerId) throws ResourceNotFoundException, FieldNotValidException {
         workerService.deleteWorkerById(workerId);
     }

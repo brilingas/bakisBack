@@ -23,21 +23,25 @@ public class LocationController {
     }
 
     @GetMapping(path = "/{locationId:[a-f0-9]{24}}")
+    @ResponseStatus(HttpStatus.OK)
     public LocationDTO getLocationById(@PathVariable String locationId) throws ResourceNotFoundException {
         return locationService.getLocationById(locationId);
     }
 
     @GetMapping(path = "")
+    @ResponseStatus(HttpStatus.OK)
     public List<LocationDTO> getAllLocations(@RequestParam Map<String, String> parameters) throws Exception {
         return locationService.getAllLocations(parameters);
     }
 
     @PutMapping(path = "/{locationId:[a-f0-9]{24}}")
+    @ResponseStatus(HttpStatus.OK)
     public void updateLocationById(@PathVariable String locationId, @RequestBody LocationDTO locationDTO) throws FieldNotValidException, ResourceNotFoundException {
         locationService.updateLocationById(locationId, locationDTO);
     }
 
     @DeleteMapping(path = "/{locationId:[a-f0-9]{24}}")
+    @ResponseStatus(HttpStatus.OK)
     public void deleteLocationById(@PathVariable String locationId) throws Exception {
         locationService.deleteLocationById(locationId);
     }

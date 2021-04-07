@@ -36,7 +36,7 @@ public class WorkerController {
     }
 
     @GetMapping(path = "" )
-    public List<WorkerDTO> getWorkers(@RequestParam Map<String, String> parameters) throws Exception {
+    public List<WorkerDTO> getAllWorkers(@RequestParam Map<String, String> parameters) throws Exception {
         return workerService.getAllWorkers(parameters);
     }
     @PutMapping(path = "/{workerId:[a-f0-9]{24}}" )

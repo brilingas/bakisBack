@@ -3,7 +3,6 @@ import lt.brilingas.guestregistry.data.dto.person.PersonDTO;
 import lt.brilingas.guestregistry.service.data.FieldNotValidException;
 import lt.brilingas.guestregistry.service.data.IPersonService;
 import lt.brilingas.guestregistry.service.data.ResourceNotFoundException;
-import lt.brilingas.guestregistry.service.impl.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

@@ -48,7 +48,7 @@ public class PersonValidator implements IPersonValidator {
         fieldValidator.validate(personDTO.getName(), "Name in Person", StringCheck.maxLength(100));
         fieldValidator.validate(personDTO.getSurname(), "Surname in Person", StringCheck.maxLength(100));
         fieldValidator.validate(personDTO.getBirthday(), "Birthday in Person", ObjectCheck.notNull());
-        fieldValidator.validate(personDTO.getPhoneNumber(), "PhoneNumber in Person", StringCheck.matchesPattern("^[+]"));//check pattern
+        fieldValidator.validate(personDTO.getPhoneNumber(), "PhoneNumber in Person", ObjectCheck.notNull());//check pattern
 
         fieldValidator.validate(personDTO.getEmail(), "Email in Person", StringCheck.maxLength(100));
         fieldValidator.validate(personDTO.getPhoto(), "Photo in Person", ObjectCheck.notNull());

@@ -28,7 +28,7 @@ public class EventController {
     }
 
     @GetMapping(path = "")
-    public List<EventDTO> getEvents(@RequestParam Map<String, String> parameters) throws Exception {
+    public List<EventDTO> getAllEvents(@RequestParam Map<String, String> parameters) throws Exception {
         return eventService.getAllEvents(parameters);
     }
 

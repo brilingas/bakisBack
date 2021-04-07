@@ -19,10 +19,11 @@ public class CardController {
     @PostMapping(path = "")
     @ResponseStatus(HttpStatus.CREATED)
     public String createNewCard(@RequestBody CardDTO cardDTO) throws FieldNotValidException {
-        return cardService.insertCard(cardDTO);
+        cardService.insertCard(cardDTO);
+        return cardDTO.getId();
     }
 
-    @PostMapping(path = "/{cardId}")
+    @PutMapping(path = "/{cardId}")
     @ResponseStatus(HttpStatus.OK)
     public void updateCardById(@PathVariable String cardId, @RequestBody CardDTO cardDTO ) throws FieldNotValidException, ResourceNotFoundException {
         cardService.updateCardById(cardId, cardDTO);

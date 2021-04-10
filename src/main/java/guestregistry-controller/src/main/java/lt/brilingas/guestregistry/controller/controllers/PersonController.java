@@ -11,6 +11,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/persons")
+@CrossOrigin(origins = "http://localhost:3000")
 public class PersonController {
     @Autowired
     private IPersonService personService;

@@ -1,5 +1,4 @@
 package lt.brilingas.guestregistry.controller.config;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,7 +26,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .httpBasic();  //to authorize - add "Authorization" header to request with "Basic ["username:password" string encoded with base64]" value
     }
-
     @Bean
     @Override
     public UserDetailsService userDetailsService() {

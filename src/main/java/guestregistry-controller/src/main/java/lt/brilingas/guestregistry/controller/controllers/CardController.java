@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 @RestController
 @RequestMapping("/cards")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CardController {
     @Autowired
     private ICardService cardService;

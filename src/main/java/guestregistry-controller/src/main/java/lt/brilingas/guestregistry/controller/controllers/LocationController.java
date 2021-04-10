@@ -12,6 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/locations")
+@CrossOrigin(origins = "http://localhost:3000")
 public class LocationController {
     @Autowired
     private ILocationService locationService;

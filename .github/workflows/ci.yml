@@ -22,7 +22,7 @@ jobs:
       - name: Build with maven
         run: |
           cd src/main/java
-          mvn -B package
+          mvn -B package -DskipTests
       
       - name: Cd to target folder
         run: |

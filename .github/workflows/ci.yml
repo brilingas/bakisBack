@@ -25,6 +25,4 @@ jobs:
           mvn -B package -DskipTests
       
       - name: Cd to target folder
-        run: |
-          cd target
-          ls -la
+        run: ls -la

@@ -23,8 +23,3 @@ jobs:
         run: |
           cd src/main/java
           mvn -B package -DskipTests
-      
-      - name: Cd to target folder
-        run: |
-          cd src/main/java/
-          ls -la

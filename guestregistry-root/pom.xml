@@ -12,7 +12,7 @@
 	<artifactId>guestregistry-root</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>guest-registry-app</name>
+	<name>guestregistry-root</name>
 	<description>REST API application which allows to register and store organization Guests, Events, Cards and also to plan future events.</description>
 
 	<modules>
@@ -20,6 +20,7 @@
 		<module>guestregistry-dao</module>
 		<module>guestregistry-service</module>
 		<module>guestregistry-controller</module>
+		<module>guestregistry-application</module>
 	</modules>
 
 	<properties>

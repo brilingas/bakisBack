@@ -1,10 +1,12 @@
 package lt.brilingas.guestregistry.dao.api;
 import lt.brilingas.guestregistry.data.dto.card.CardDTO;
 import lt.brilingas.guestregistry.data.dto.card.CardType;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public interface ICardDAO {
     String insert(CardDTO cardDto);
     Optional<CardDTO> getById(String cardId);

@@ -26,15 +26,15 @@ public class WorkerDAO implements IWorkerDAO {
     private IQueryBuilder queryBuilder;
 
     @Override
-    public String insert(WorkerDTO worker) {
-        WorkerEntity workerEntity = WorkerMapper.toEntity(worker);
+    public String insert(WorkerDTO workerDTO) {
+        WorkerEntity workerEntity = WorkerMapper.toEntity(workerDTO);
         WorkerEntity savedEntity = workerRepository.insert(workerEntity);
         return savedEntity.getId();
     }
 
     @Override
-    public void update(WorkerDTO worker) {
-        WorkerEntity workerEntity = WorkerMapper.toEntity(worker);
+    public void update(WorkerDTO workerDTO) {
+        WorkerEntity workerEntity = WorkerMapper.toEntity(workerDTO);
         workerRepository.save(workerEntity);
     }
 
@@ -44,18 +44,18 @@ public class WorkerDAO implements IWorkerDAO {
     }
 
     @Override
-    public Optional<WorkerDTO> findById(String workerId) {
+    public Optional<WorkerDTO> getById(String workerId) {
         return workerRepository.findById(workerId).map(WorkerMapper::toDTO);
     }
 
     @Override
-    public List<WorkerDTO> findAll() {
+    public List<WorkerDTO> getAll() {
         List<WorkerEntity> listEntity = workerRepository.findAll();
         return WorkerMapper.toDTOLinkedList(listEntity);
     }
 
     @Override
-    public List<WorkerDTO> findByFilter(Map<String, Map<QueryParameterFunction, String>> parameters)
+    public List<WorkerDTO> getByFilter(Map<String, Map<QueryParameterFunction, String>> parameters)
             throws JsonProcessingException, ParameterNotValidException {
         BasicQuery query = queryBuilder.build(parameters, WorkerDTO.FIELDS_ALLOWED_IN_FILTER);
         List<WorkerEntity> listEntity = mongoTemplate.find(query, WorkerEntity.class);

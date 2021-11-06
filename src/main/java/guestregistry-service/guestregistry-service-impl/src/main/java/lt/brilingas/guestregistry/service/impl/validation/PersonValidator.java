@@ -2,7 +2,6 @@ package lt.brilingas.guestregistry.service.impl.validation;
 import lt.brilingas.guestregistry.dao.api.IWorkerDAO;
 import lt.brilingas.guestregistry.dao.api.QueryParameterFunction;
 import lt.brilingas.guestregistry.data.dto.Address;
-import lt.brilingas.guestregistry.data.dto.location.LocationDTO;
 import lt.brilingas.guestregistry.data.dto.person.PersonDTO;
 import lt.brilingas.guestregistry.data.dto.worker.WorkerDTO;
 import lt.brilingas.guestregistry.service.data.FieldNotValidException;
@@ -11,13 +10,8 @@ import lt.brilingas.guestregistry.service.impl.validation.impl.ObjectCheck;
 import lt.brilingas.guestregistry.service.impl.validation.impl.StringCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class PersonValidator implements IPersonValidator {
@@ -49,7 +43,6 @@ public class PersonValidator implements IPersonValidator {
         fieldValidator.validate(personDTO.getSurname(), "Surname in Person", StringCheck.maxLength(100));
         fieldValidator.validate(personDTO.getBirthday(), "Birthday in Person", ObjectCheck.notNull());
         fieldValidator.validate(personDTO.getPhoneNumber(), "PhoneNumber in Person", ObjectCheck.notNull());//check pattern
-
         fieldValidator.validate(personDTO.getEmail(), "Email in Person", StringCheck.maxLength(100));
         fieldValidator.validate(personDTO.getPhoto(), "Photo in Person", ObjectCheck.notNull());
         fieldValidator.validate(personDTO.getSignature(), "Signature in Person", ObjectCheck.notNull());
@@ -61,7 +54,7 @@ public class PersonValidator implements IPersonValidator {
 
     @Override
     public void validateOnDelete(String personId) throws Exception {
-        List<WorkerDTO> workersWithThisPerson = workerDAO.findByFilter(Collections.singletonMap("personId", Collections.singletonMap(QueryParameterFunction.EQUALS, personId)));
+        List<WorkerDTO> workersWithThisPerson = workerDAO.getByFilter(Collections.singletonMap("personId", Collections.singletonMap(QueryParameterFunction.EQUALS, personId)));
 //        List<GuestDTO> guestsWithThisPerson = guestDAO.findByFilter(Collections.singletonMap("personId", Collections.singletonMap(QueryParameterFunction.EQUALS, personId)));//TODO fix if statement below
         if (!workersWithThisPerson.isEmpty()){
             throw new FieldNotValidException("Person by ID = " + personId + " cannot be deleted (there are Workers or Guests with a reference to it)");

@@ -1,9 +1,11 @@
 package lt.brilingas.guestregistry.dao.api;
 import lt.brilingas.guestregistry.data.dto.person.PersonDTO;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
+@Component
 public interface IPersonDAO {
     String insert(PersonDTO personDTO);
     void update(PersonDTO personDTO);

@@ -31,7 +31,7 @@ public class WorkerService implements IWorkerService {
 
     @Override
     public LoginStatus login(WorkerDTO workerDTO) throws FieldNotValidException, DTOReferenceException, ResourceNotFoundException {
-        List<WorkerDTO> workers = workerDAO.findAll();
+        List<WorkerDTO> workers = workerDAO.getAll();
         for (WorkerDTO worker:workers){
             if(workerDTO.getId().equals(worker.getId()) && workerDTO.getCardId().equals(worker.getCardId())){
                 return LoginStatus.SUCCESS;
@@ -79,7 +79,7 @@ public class WorkerService implements IWorkerService {
     @Override
     public void deleteWorkerById(String workerId) throws ResourceNotFoundException, FieldNotValidException {
         if (workerId == null) throw new IllegalArgumentException();
-        Optional<WorkerDTO> workerOptional = workerDAO.findById(workerId);
+        Optional<WorkerDTO> workerOptional = workerDAO.getById(workerId);
         if (workerOptional.isPresent()) {
             String cardId = workerOptional.get().getCardId();
             if (cardId != null) {
@@ -92,7 +92,7 @@ public class WorkerService implements IWorkerService {
     @Override
     public WorkerDTO getWorkerById(String workerId) throws ResourceNotFoundException {
         if (workerId == null) throw new IllegalArgumentException();
-        Optional<WorkerDTO> workerOptional = workerDAO.findById(workerId);
+        Optional<WorkerDTO> workerOptional = workerDAO.getById(workerId);
         if (workerOptional.isEmpty()) {
             throw new ResourceNotFoundException("Worker by ID = " + workerId + " not found" );
         } else {
@@ -104,9 +104,9 @@ public class WorkerService implements IWorkerService {
     public List<WorkerDTO> getAllWorkers(Map<String, String> parameters) throws Exception {
         if (parameters == null) throw new IllegalArgumentException();
         if (parameters.isEmpty()) {
-            return workerDAO.findAll();
+            return workerDAO.getAll();
         } else {
-            return workerDAO.findByFilter(queryParametersCreator.create(parameters, WorkerDTO.FIELDS_ALLOWED_IN_FILTER));
+            return workerDAO.getByFilter(queryParametersCreator.create(parameters, WorkerDTO.FIELDS_ALLOWED_IN_FILTER));
         }
     }
 

@@ -8,11 +8,11 @@
 		<version>2.3.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>lt.exadel.guestregistry</groupId>
+	<groupId>lt.brilingas.guestregistry</groupId>
 	<artifactId>guestregistry-root</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>guest-registry-2020-09</name>
+	<name>guest-registry-app</name>
 	<description>REST API application which allows to register and store organization Guests, Events, Cards and also to plan future events.</description>
 
 	<modules>
@@ -29,27 +29,27 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>lt.exadel.guestregistry</groupId>
+				<groupId>lt.brilingas.guestregistry</groupId>
 				<artifactId>guestregistry-data</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>lt.exadel.guestregistry</groupId>
+				<groupId>lt.brilingas.guestregistry</groupId>
 				<artifactId>guestregistry-service-api</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>lt.exadel.guestregistry</groupId>
+				<groupId>lt.brilingas.guestregistry</groupId>
 				<artifactId>guestregistry-service-impl</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>lt.exadel.guestregistry</groupId>
+				<groupId>lt.brilingas.guestregistry</groupId>
 				<artifactId>guestregistry-dao-api</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>lt.exadel.guestregistry</groupId>
+				<groupId>lt.brilingas.guestregistry</groupId>
 				<artifactId>guestregistry-dao-impl-mongo</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>

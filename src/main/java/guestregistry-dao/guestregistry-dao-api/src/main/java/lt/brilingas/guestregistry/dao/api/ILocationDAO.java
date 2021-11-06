@@ -1,9 +1,11 @@
 package lt.brilingas.guestregistry.dao.api;
 import lt.brilingas.guestregistry.data.dto.location.LocationDTO;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
+@Component
 public interface ILocationDAO {
     String insert(LocationDTO locationDTO);
     void update(LocationDTO locationDTO);

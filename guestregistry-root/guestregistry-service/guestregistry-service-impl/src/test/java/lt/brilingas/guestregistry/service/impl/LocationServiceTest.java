@@ -5,27 +5,23 @@ import lt.brilingas.guestregistry.dao.api.QueryParameterFunction;
 import lt.brilingas.guestregistry.data.dto.location.LocationDTO;
 import lt.brilingas.guestregistry.service.data.ILocationService;
 import lt.brilingas.guestregistry.service.data.ResourceNotFoundException;
-import lt.brilingas.guestregistry.service.impl.config.ServiceTestConfig;
 import lt.brilingas.guestregistry.service.data.FieldNotValidException;
 import lt.brilingas.guestregistry.service.impl.validation.ILocationValidator;
 import lt.brilingas.guestregistry.service.impl.validation.IQueryParametersCreator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.*;
 
-@SpringBootTest(classes = {ServiceTestConfig.class})
 public class LocationServiceTest {
     @MockBean
     private ILocationValidator locationValidator;
     @MockBean
     private IQueryParametersCreator queryParametersCreator;
-    @Autowired  //MockBean
+    @MockBean
     private ILocationDAO locationDAO;
-    @Autowired
+    @MockBean
     private ILocationService locationService;
     private final String ID = "0123456789abcdef01234567";
     private final LocationDTO LOCATION = new LocationDTO();

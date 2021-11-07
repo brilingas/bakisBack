@@ -2,7 +2,7 @@ package lt.brilingas.guestregistry.service.impl.validation;
 
 import lt.brilingas.guestregistry.dao.api.ILocationDAO;
 import lt.brilingas.guestregistry.data.dto.event.EventDTO;
-import lt.brilingas.guestregistry.service.impl.config.ServiceTestConfig;
+//import lt.brilingas.guestregistry.service.impl.config.ServiceTestConfig;
 import lt.brilingas.guestregistry.service.impl.validation.impl.*;
 import lt.brilingas.guestregistry.service.data.FieldNotValidException;
 import org.junit.jupiter.api.Assertions;
@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-@SpringBootTest(classes = {ServiceTestConfig.class})
+@SpringBootTest
 public class EventValidatorTest {
     @MockBean
     private FieldValidator fieldValidator;

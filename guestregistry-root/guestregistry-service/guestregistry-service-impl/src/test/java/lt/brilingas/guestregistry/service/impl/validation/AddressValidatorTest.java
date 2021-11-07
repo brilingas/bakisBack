@@ -1,7 +1,7 @@
 package lt.brilingas.guestregistry.service.impl.validation;
 
 import lt.brilingas.guestregistry.data.dto.Address;
-import lt.brilingas.guestregistry.service.impl.config.ServiceTestConfig;
+//import lt.brilingas.guestregistry.service.impl.config.ServiceTestConfig;
 import lt.brilingas.guestregistry.service.impl.validation.impl.FieldValidator;
 import lt.brilingas.guestregistry.service.impl.validation.impl.StringCheck;
 import lt.brilingas.guestregistry.service.data.FieldNotValidException;
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-@SpringBootTest(classes = {ServiceTestConfig.class})
+@SpringBootTest
 public class AddressValidatorTest {
     @MockBean
     private FieldValidator fieldValidator;

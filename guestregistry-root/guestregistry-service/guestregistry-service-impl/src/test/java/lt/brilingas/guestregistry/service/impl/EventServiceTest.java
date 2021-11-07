@@ -5,27 +5,23 @@ import lt.brilingas.guestregistry.dao.api.QueryParameterFunction;
 import lt.brilingas.guestregistry.data.dto.event.EventDTO;
 import lt.brilingas.guestregistry.service.data.IEventService;
 import lt.brilingas.guestregistry.service.data.ResourceNotFoundException;
-import lt.brilingas.guestregistry.service.impl.config.ServiceTestConfig;
 import lt.brilingas.guestregistry.service.data.FieldNotValidException;
 import lt.brilingas.guestregistry.service.impl.validation.IEventValidator;
 import lt.brilingas.guestregistry.service.impl.validation.IQueryParametersCreator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.*;
 
-@SpringBootTest(classes = {ServiceTestConfig.class})
 public class EventServiceTest {
     @MockBean
     private IEventValidator eventValidator;
     @MockBean
     private IQueryParametersCreator queryParametersCreator;
-    @Autowired  //MockBean
+    @MockBean
     private IEventDAO eventDAO;
-    @Autowired
+    @MockBean
     private IEventService eventService;
     private final String ID = "0123456789abcdef01234567";
     private final EventDTO EVENT = new EventDTO();
@@ -33,12 +29,10 @@ public class EventServiceTest {
 
     @Test
     public void insertEventTest() throws FieldNotValidException {
-        Assertions.assertEquals(1,1);
-
-//        Assertions.assertThrows(IllegalArgumentException.class, () -> eventService.insertEvent(null));
-//        Mockito.when(eventDAO.insert(EVENT)).thenReturn(ID);
-//        Assertions.assertEquals(ID, eventService.insertEvent(EVENT));
-//        Mockito.verify(eventValidator, Mockito.times(1)).validateOnCreate(EVENT);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> eventService.insertEvent(null));
+        Mockito.when(eventDAO.insert(EVENT)).thenReturn(ID);
+        Assertions.assertEquals(ID, eventService.insertEvent(EVENT));
+        Mockito.verify(eventValidator, Mockito.times(1)).validateOnCreate(EVENT);
     }
 
     @Test
@@ -64,7 +58,6 @@ public class EventServiceTest {
     @Test
     public void deleteEvent() throws ResourceNotFoundException {
         Assertions.assertThrows(IllegalArgumentException.class, () -> eventService.deleteEventById(null));
-
         eventService.deleteEventById(ID);
         Mockito.verify(eventDAO, Mockito.times(1)).deleteById(Mockito.eq(ID));
     }

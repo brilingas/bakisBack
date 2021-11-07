@@ -1,7 +1,7 @@
 package lt.brilingas.guestregistry.service.impl.validation;
 
 import lt.brilingas.guestregistry.data.dto.location.LocationDTO;
-import lt.brilingas.guestregistry.service.impl.config.ServiceTestConfig;
+//import lt.brilingas.guestregistry.service.impl.config.ServiceTestConfig;
 import lt.brilingas.guestregistry.service.impl.validation.impl.FieldValidator;
 import lt.brilingas.guestregistry.service.impl.validation.impl.ObjectCheck;
 import lt.brilingas.guestregistry.service.impl.validation.impl.StringCheck;
@@ -13,13 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-@SpringBootTest(classes = {ServiceTestConfig.class})
+@SpringBootTest
 public class LocationValidatorTest {
     @MockBean
     private FieldValidator fieldValidator;
     @MockBean
     private IAddressValidator addressValidator;
-    @Autowired
+//    @Autowired
+    @MockBean
     private ILocationValidator locationValidator;
 
     @Test

@@ -1,4 +1,4 @@
-package lt.brilingas.guestregistry.controller;
+package lt.brilingas.guestregistry.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

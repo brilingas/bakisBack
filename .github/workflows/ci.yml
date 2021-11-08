@@ -22,11 +22,11 @@ jobs:
           java-version: 14
 
       - name: Cache sonarcloud packages
-          uses: actions/cache@v1
-          with:
-            path: ~/.sonar/cache
-            key: ${{ runner.os }}-sonar
-            restore-keys: ${{ runner.os }}-sonar
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
 
       - name: Cache maven packages
         uses: actions/cache@v1

@@ -25,6 +25,8 @@
 
 	<properties>
 		<java.version>14</java.version>
+		<sonar.organization>brilingas</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 
 	<dependencyManagement>

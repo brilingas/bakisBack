@@ -2,7 +2,6 @@
 FROM maven:3.6.3-openjdk-14 AS build
 COPY /. /guest-registry-app/src
 RUN mvn -f /guest-registry-app/src/guestregistry-root/pom.xml clean package -DskipTests
-RUN ls  /guest-registry-app/src/guestregistry-root/guestregistry-application/target/
 
 #run
 FROM openjdk:14-alpine AS run

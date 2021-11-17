@@ -88,6 +88,6 @@ Open http://localhost:8080
     - GET /events
     - GET /events/{eventId}
 ## Contributing
-If you have any ideas, just [open an issue](https://github.com/brilingas/guest-registry-app-front/issues/new)
+If you have any ideas, just [open an issue](https://github.com/brilingas/guest-registry-app-back/issues/new)
 
 If you want to contribute - please do. Fork the repo and make changes as you'd like. PRs are very welcomed too

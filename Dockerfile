@@ -1,4 +1,3 @@
-LABEL maintainer="brilingas"
 #build
 FROM maven:3.6.3-openjdk-14 AS build
 COPY /. /guest-registry-app/src

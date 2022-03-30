@@ -5,7 +5,7 @@ mvnw.cmd
 target/
 !guestregistry-controller/src/main/**/target/
 !guestregistry-controller/src/test/**/target/
-
+*.properties
 
 ### STS ###
 .apt_generated
